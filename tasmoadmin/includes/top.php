@@ -21,10 +21,14 @@
 	}
 
 
-	$subdir = dirname( $_SERVER[ 'PHP_SELF' ] )."/";
+	// try to get $subdir from header X-Tasmoadmin-Base
+	// it helps when app is run behind proxy
+	if (isset($_SERVER['HTTP_X_TASMOADMIN_BASE'])) {
+    		$subdir = $_SERVER['HTTP_X_TASMOADMIN_BASE'];
+  	} else
+		$subdir = dirname( $_SERVER[ 'PHP_SELF' ] )."/";
 
-	$subdir
-		    = $subdir = str_replace( "\\", "/", $subdir );
+	$subdir = $subdir = str_replace( "\\", "/", $subdir );
 	$subdir = $subdir == "//" ? "/" : $subdir;
 
 
